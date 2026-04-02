@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bug Tracker Pro</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🐞</div>
+        <div>
+          <h1>Bug Tracker Pro</h1>
+          <p>Issue monitoring workspace</p>
+        </div>
+      </div>
+
+      <div class="nav">
+        <div class="nav-item active">Dashboard</div>
+        <div class="nav-item">Issue Registry</div>
+        <div class="nav-item">Artifacts</div>
+        <div class="nav-item">Reports</div>
+        <div class="nav-item">Settings</div>
+      </div>
+
+      <div class="sidebar-card"></div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="title-wrap">
+          <h2>Bug Tracker Dashboard</h2>
+          <p>Track and resolve software issues across source files, tests, backlog items, design documents, binaries, and data files.</p>
+        </div>
+        <div class="actions">
+          <div class="pill">Sprint 2 Ready</div>
+          <div class="pill">Functional Web App</div>
+        </div>
+      </div>
+
+      
+
+      <section class="stats">
+        <div class="stat">
+          <div class="stat-head">
+            <div class="stat-label">Total Bugs</div>
+            <div class="stat-icon slate">#</div>
+          </div>
+          <div class="stat-value" id="totalCount">0</div>
+          <div class="stat-note">All logged issues in registry</div>
+        </div>
+        <div class="stat">
+          <div class="stat-head">
+            <div class="stat-label">Open</div>
+            <div class="stat-icon red">!</div>
+          </div>
+          <div class="stat-value" id="openCount">0</div>
+          <div class="stat-note">Awaiting action</div>
+        </div>
+        <div class="stat">
+          <div class="stat-head">
+            <div class="stat-label">In Progress</div>
+            <div class="stat-icon amber">~</div>
+          </div>
+          <div class="stat-value" id="progressCount">0</div>
+          <div class="stat-note">Currently being worked on</div>
+        </div>
+        <div class="stat">
+          <div class="stat-head">
+            <div class="stat-label">Fixed</div>
+            <div class="stat-icon green">✓</div>
+          </div>
+          <div class="stat-value" id="fixedCount">0</div>
+          <div class="stat-note">Resolved issues</div>
+        </div>
+        <div class="stat">
+          <div class="stat-head">
+            <div class="stat-label">Critical / High</div>
+            <div class="stat-icon blue">↑</div>
+          </div>
+          <div class="stat-value" id="highCount">0</div>
+          <div class="stat-note">Priority attention</div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>Log New Bug</h3>
+              <p>Enter issue details for the tracker.</p>
+            </div>
+          </div>
+          <div class="form-wrap">
+            <form id="bugForm">
+              <div class="grid">
+                <div class="field full">
+                  <label for="title">Bug Title</label>
+                  <input id="title" required placeholder="Example: Login button does not submit form" />
+                </div>
+
+                <div class="field full">
+                  <label for="description">Short Description</label>
+                  <textarea id="description" placeholder="Summarize the bug, what happens, and why it matters."></textarea>
+                </div>
+
+                <div class="field">
+                  <label for="artifactType">Artifact Type</label>
+                  <select id="artifactType" required>
+  <option value="" disabled selected>Select Artifact Type</option>
+  <option>Source File</option>
+  <option>Test File</option>
+  <option>Product Backlog Item</option>
+  <option>Design Document</option>
+  <option>Binary</option>
+  <option>Data File</option>
+</select>
+                </div>
+
+                <div class="field">
+                  <label for="artifactName">Artifact Name</label>
+                  <input id="artifactName" placeholder="Example: login.js or UI Mockup v2" />
+                </div>
+
+                <div class="field">
+                  <label for="bugType">Bug Type</label>
+                  <select id="bugType" required>
+  <option value="" disabled selected>Select Bug Type</option>
+  <option>Logic</option>
+  <option>UI</option>
+  <option>Performance</option>
+  <option>Crash</option>
+  <option>Validation</option>
+  <option>Data</option>
+</select>
+                </div>
+
+                <div class="field">
+                  <label for="severity">Severity</label>
+                  <select id="severity" required>
+  <option value="" disabled selected>Select Severity</option>
+  <option>Low</option>
+  <option>Medium</option>
+  <option>High</option>
+  <option>Critical</option>
+</select>
+                </div>
+
+                <div class="field">
+                  <label for="reportedBy">Reported By</label>
+                  <input id="reportedBy" placeholder="Example: Developer" />
+                </div>
+
+                <div class="field">
+                  <label for="dateFound">Date Found</label>
+                  <input id="dateFound" type="date" />
+                </div>
+
+                <div class="field">
+                  <label for="status">Status</label>
+                  <select id="status" required>
+  <option value="" disabled selected>Select Status</option>
+  <option>Open</option>
+  <option>In Progress</option>
+  <option>Fixed</option>
+</select>
+                </div>
+
+                <div class="field">
+                  <label for="dateFixed">Date Fixed</label>
+                  <input id="dateFixed" type="date" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit" id="submitBtn">Add Bug</button>
+                <button class="btn btn-secondary" type="button" id="resetBtn">Clear Form</button>
+                <button class="btn btn-secondary" type="button" id="duplicateBtn">Detect Duplicate Bug</button>
+              </div>
+            </form>
+              <div id="duplicateNote" style="display:none; margin-top:10px; color:#b91c1c; font-size:13px;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>Issue Registry</h3>
+              <p>Search, filter, and manage recorded bugs.</p>
+            </div>
+            <div class="section-note" id="registryCount">0 issues shown</div>
+          </div>
+
+          <div class="registry-controls">
+            <input id="searchInput" placeholder="Search by title, artifact, type, or reporter" />
+            <select id="statusFilter">
+              <option value="All">All Statuses</option>
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Fixed">Fixed</option>
+            </select>
+            <select id="severityFilter">
+              <option value="All">All Severities</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+            <select id="artifactFilter">
+              <option value="All">All Artifacts</option>
+              <option value="Source File">Source File</option>
+              <option value="Test File">Test File</option>
+              <option value="Product Backlog Item">Product Backlog Item</option>
+              <option value="Design Document">Design Document</option>
+              <option value="Binary">Binary</option>
+              <option value="Data File">Data File</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Issue</th>
+                  <th>Artifact</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Status</th>
+                  <th>Reporter</th>
+                  <th>Date Found</th>
+                  <th>Date Fixed</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bugTableBody"></tbody>
+            </table>
+            <div class="empty" id="emptyState" style="display:none;">
+              <h4>No bugs match your current filters</h4>
+              <div>Try changing filters or add a new issue using the form.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
